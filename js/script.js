@@ -47,12 +47,6 @@
 
         targetArticle.classList.add('active');
         console.log('add class active to article');
-
-    }
-    const links = document.querySelectorAll('.titles a');
-
-    for (let link of links) {
-        link.addEventListener('click', titleClickHandler);
     }
 
     const optArticleSelector = '.post',
@@ -87,13 +81,20 @@
 
             const articleTitle = article.querySelector(optTitleSelector).innerHTML;
             console.log('Tytuł artykułu:', articleTitle);
-            
-            /* create HTML of the link */
+
+            /* [DONE] create HTML of the link */
 
             const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
-            console.log(linkHTML);
+            console.log('Link html: ', linkHTML);
 
-            /* insert link into titleList */
+            /* [DONE] insert link into titleList */
+
+            titleList.insertAdjacentHTML("beforeend", linkHTML);
+        }
+        const links = document.querySelectorAll('.titles a');
+
+        for (let link of links) {
+            link.addEventListener('click', titleClickHandler);
         }
     }
     generateTitleLinks();
