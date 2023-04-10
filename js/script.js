@@ -80,12 +80,14 @@
             /* [DONE] get the article id */
 
             const articleId = article.getAttribute('id');
-            console.log(articleId);
+            console.log('ID artykułu:', articleId);
 
-            /* find the title element */
+            /* [DONE] find the title element */
+            /* [DONE] get the title from the title element */
 
-            /* get the title from the title element */
-
+            const articleTitle = article.querySelector(optTitleSelector).innerHTML;
+            console.log('Tytuł artykułu:', articleTitle);
+            
             /* create HTML of the link */
 
             /* insert link into titleList */
