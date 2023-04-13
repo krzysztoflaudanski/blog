@@ -43,6 +43,7 @@ const optArticleSelector = '.post',
   optTitleListSelector = '.titles',
   optArticleTagsSelector = '.post-tags .list';
 
+
 function generateTitleLinks(customSelector = '') {
 
   /* [DONE] remove contents of titleList */
@@ -201,3 +202,5 @@ function addClickListenersToTags() {
 }
 
 addClickListenersToTags();
+
+/* optArticleAuthorSelector = '.post-author'; */
