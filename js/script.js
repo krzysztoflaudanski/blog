@@ -203,4 +203,49 @@ function addClickListenersToTags() {
 
 addClickListenersToTags();
 
-/* optArticleAuthorSelector = '.post-author'; */
+ const optArticleAuthorSelector = '.post-author';
+
+function generateAuthors() {
+
+  /* find all articles */
+
+  const articles = document.querySelectorAll(optArticleSelector);
+
+  /* START LOOP: for every article */
+
+  for (let article of articles) {
+
+    /* find authors wrapper */
+
+    const authorWrapper = article.querySelector(optArticleAuthorSelector);
+    console.log(authorWrapper);
+
+    /* make html variable with empty string */
+
+    let html = '';
+
+    /* get author from data-author atribute */
+
+    const articleAuthor = article.getAttribute('data-author');
+    console.log(articleAuthor);
+
+    /* generate HTML of the link */
+
+    const authorHTML = '<a href="#' + articleAuthor + '">' + articleAuthor + '</a>';
+    console.log(authorHTML);
+
+    /* add generate code to html variable */
+
+    html = html + authorHTML ;
+
+
+   /* insert html of all the links into the author wrapper */
+
+    authorWrapper.innerHTML = html;
+
+    /* END LOOP: for every author */
+  }
+
+}
+
+generateAuthors()
