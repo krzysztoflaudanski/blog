@@ -1,5 +1,14 @@
 'use strict';
 
+const optArticleSelector = '.post',
+  optTitleSelector = '.post-title',
+  optTitleListSelector = '.titles',
+  optArticleTagsSelector = '.post-tags .list',
+  optTagsListSelector = '.tags.list',
+  optCloudClassCount = '5',
+  optCloudClassPrefix = 'tag-size-',
+  optArticleAuthorSelector = '.post-author';
+
 const titleClickHandler = function (event) {
   event.preventDefault();
   const clickedElement = this;
@@ -36,13 +45,6 @@ const titleClickHandler = function (event) {
 
   targetArticle.classList.add('active');
 };
-
-
-const optArticleSelector = '.post',
-  optTitleSelector = '.post-title',
-  optTitleListSelector = '.titles',
-  optArticleTagsSelector = '.post-tags .list',
-  optTagsListSelector = '.tags.list';
 
 function generateTitleLinks(customSelector = '') {
 
@@ -82,6 +84,29 @@ function generateTitleLinks(customSelector = '') {
   }
 }
 generateTitleLinks();
+
+function calculateTagsParams(tags) {
+
+  const params = { 'max': 0, 'min': 999999 };
+
+  for (let tag in tags) {
+    if (tags[tag] > params.max) {
+      params.max = tags[tag];
+    }
+    if (tags[tag] < params.min) {
+      params.min = tags[tag];
+    }
+  }
+  return params;
+}
+
+function calculateTagClass(count, params) {
+
+  const classNumber = Math.floor(((count - params.min) / (params.max - params.min)) * (optCloudClassCount - 1) + 1);
+
+  return classNumber;
+}
+
 
 function generateTags() {
 
@@ -152,6 +177,8 @@ function generateTags() {
 
   /* [NEW] create variable for all links HTML code */
 
+  const tagsParams = calculateTagsParams(allTags);
+
   let allTagsHTML = '';
 
   /* [NEW] START LOOP: for each tag in allTags: */
@@ -160,7 +187,9 @@ function generateTags() {
 
     /* [NEW] generate code of a link and add it to allTagsHTML */
 
-    allTagsHTML += '<li><a href="#tag-' + tag + '">' + tag + ' (' + allTags[tag] + ') ' + '</a></li>';
+    const tagLinkHTML = '<li><a class="' + optCloudClassPrefix + calculateTagClass(allTags[tag], tagsParams) + '" href="#tag-' + tag + '">' + tag + ' (' + allTags[tag] + ') ' + '</a></li>';
+
+    allTagsHTML += tagLinkHTML;
 
     /* [NEW] END LOOP: for each tag in allTags: */
   }
@@ -241,8 +270,6 @@ function addClickListenersToTags() {
 }
 
 addClickListenersToTags();
-
-const optArticleAuthorSelector = '.post-author';
 
 function generateAuthors() {
 
