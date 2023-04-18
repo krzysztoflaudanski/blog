@@ -8,7 +8,8 @@ const opts = {
   tagsListSelector: '.tags.list',
   cloudClassCount: '5',
   cloudClassPrefix: 'tag-size-',
-  articleAuthorSelector: '.post-author'
+  articleAuthorSelector: '.post-author',
+  authorListSelector: '.authors.list'
 };
 
 const titleClickHandler = function (event) {
@@ -146,7 +147,7 @@ function generateTags() {
 
       /* [DONE] generate HTML of the link */
 
-      const linkHTML = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
+      const linkHTML = '<li class="tag-link"><a href="#tag-' + tag + '">' + tag + '</a></li>';
 
       /* [DONE] add generated code to html variable */
 
@@ -189,7 +190,7 @@ function generateTags() {
 
     /* [NEW] generate code of a link and add it to allTagsHTML */
 
-    const tagLinkHTML = '<li><a class="' + opts.cloudClassPrefix + calculateTagClass(allTags[tag], tagsParams) + '" href="#tag-' + tag + '">' + tag + ' (' + allTags[tag] + ') ' + '</a></li>';
+    const tagLinkHTML = '<li class="tag-link"><a class="' + opts.cloudClassPrefix + calculateTagClass(allTags[tag], tagsParams) + '" href="#tag-' + tag + '">' + tag + ' (' + allTags[tag] + ') ' + '</a></li>';
 
     allTagsHTML += tagLinkHTML;
 
@@ -257,7 +258,7 @@ function tagClickHandler(event) {
 function addClickListenersToTags() {
   /* [DONE] find all links to tags */
 
-  const tagLinks = document.querySelectorAll('.list li a');
+  const tagLinks = document.querySelectorAll('.tag-link a');
 
   /* [DONE] START LOOP: for each link */
 
@@ -274,6 +275,10 @@ function addClickListenersToTags() {
 addClickListenersToTags();
 
 function generateAuthors() {
+
+/* [NEW] create a new variable allAuthors with an empty array */
+
+  let allAuthors = [];
 
   /* find all articles */
 
@@ -303,12 +308,29 @@ function generateAuthors() {
 
     html = html + authorHTML;
 
+    /* [NEW] check if this link is NOT already in allAuthors */
+
+    if(allAuthors.indexOf(authorHTML) == -1){
+
+      /* [NEW] add generated code to allAuthors array */
+
+      allAuthors.push(authorHTML);
+    }
+
     /* insert html of all the links into the author wrapper */
 
     authorWrapper.innerHTML = html;
 
     /* END LOOP: for every author */
   }
+
+  /* [NEW] find list of authors in right column */
+  const authorList = document.querySelector(opts.authorListSelector);
+  console.log(authorList);
+
+  /* [NEW] add html from allTags to tagList */
+
+  authorList.innerHTML = allAuthors.join(' ');
 
 }
 
