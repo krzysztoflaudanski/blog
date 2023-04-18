@@ -2,6 +2,11 @@
 
 $color-light: #fff;
 $color-dark: #444;
+$color-tag1: #a56466;
+$color-tag2: #865659;
+$color-tag3: #fa4d56;
+$color-tag4: #f0252f;
+$color-tag5: #f1000c;
 
 $font-logo: 'Sacramento', cursive;
 $font-header: 'Oswald', sans-serif;
@@ -75,6 +80,10 @@ body {
 
 // Lists //
 
+ .tags li{
+  display: inline-block;
+}
+
 .list {
   list-style-type: none;
   margin: 0;
@@ -82,6 +91,31 @@ body {
 
   .active {
     font-weight: bold;
+
+  }
+  .tag-size-1 {
+    font-size: 10px;
+    color: $color-tag1;
+  }
+
+  .tag-size-2 {
+    font-size: 11px;
+    color: $color-tag2;
+  }
+
+  .tag-size-3 {
+    font-size: 13px;
+    color: $color-tag3;
+  }
+
+  .tag-size-4 {
+    font-size: 14px;
+    color: $color-tag4;
+  }
+
+  .tag-size-5 {
+    font-size: 15px;
+    color: $color-tag5;
   }
 }
 
