@@ -1,5 +1,14 @@
 'use strict';
 
+const templates = {
+  articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
+  tagLink: Handlebars.compile(document.querySelector('#template-tag-link').innerHTML),
+  authorLink: Handlebars.compile(document.querySelector('#template-author-link').innerHTML)
+}
+
+
+
+
 const opts = {
   articleSelector: '.post',
   titleSelector: '.post-title',
@@ -74,7 +83,9 @@ function generateTitleLinks(customSelector = '') {
 
     /* [DONE] create HTML of the link */
 
-    const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
+    const linkHTMLData = { id: articleId, title: articleTitle };
+
+    const linkHTML = templates.articleLink(linkHTMLData);
 
     /* [DONE] insert link into titleList */
 
@@ -147,7 +158,8 @@ function generateTags() {
 
       /* [DONE] generate HTML of the link */
 
-      const linkHTML = '<li class="tag-link"><a href="#tag-' + tag + '">' + tag + '</a></li>';
+      const linkHTMLData = { id: tag, title: tag };
+      const linkHTML = templates.tagLink(linkHTMLData);
 
       /* [DONE] add generated code to html variable */
 
@@ -302,11 +314,13 @@ function generateAuthors() {
 
     /* [DONE] generate HTML of the link */
 
-    const authorHTML = '<a href="#' + articleAuthor + '">' + articleAuthor + '</a>';
+    const linkHTMLData = { id: articleAuthor , title: articleAuthor };
+
+    const linkHTML = templates.authorLink(linkHTMLData);
 
     /* [DONE] add generate code to html variable */
 
-    html = html + authorHTML;
+    html = html + linkHTML;
 
     /* [DONE] check if this link is NOT already in allAuthors */
 
